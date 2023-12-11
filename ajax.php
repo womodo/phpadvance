@@ -44,4 +44,22 @@ if ($action == 'adduser' && !empty($_POST)) {
     }
 } 
 
+// getcountof function and getAllUsers action
+if ($action == 'getAllUsers') {
+    $page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
+    $limit = 4;
+
+    $start = ($page - 1) * $limit;
+    $users = $obj->getRows($start, $limit);
+    if (!empty($users)) {
+        $userlist = $users;
+    } else {
+        $userlist = [];
+    }
+    $total = $obj->getCount();
+    $userArr = ['count' => $total, 'users' => $userlist];
+    echo json_encode($userArr);
+    exit();
+}
+
 ?>

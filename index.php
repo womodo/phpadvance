@@ -10,6 +10,9 @@
 
     <!-- font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- link css file -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <h1 class="bg-dark text-light text-center py-2">PHP advance CRUD</h1>
@@ -41,14 +44,16 @@
 
         <!-- pagination -->
         <nav aria-label="Page navigation example" id="pagination">
-            <ul class="pagination justify-content-center">
+            <!-- <ul class="pagination justify-content-center">
                 <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                 <li class="page-item active"><a class="page-link" href="#">1</a></li>
                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
+            </ul> -->
         </nav>
+
+        <input type="hidden" name="currentpage" id="currentpage" value="1">
     </div>
 
     <!-- jquery cdn -->

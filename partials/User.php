@@ -35,7 +35,7 @@ class User extends Database
 
     // function to get rows
     public function getRows($start=0, $limit=4) {
-        $sql = "SELECT * FROM {$this->tableName} ORDER BY DESC LIMIT {$start},{$limit}";
+        $sql = "SELECT * FROM {$this->tableName} ORDER BY id DESC LIMIT {$start},{$limit}";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
@@ -48,9 +48,9 @@ class User extends Database
 
     // function to get single row
     public function getRow($field, $value) {
-        $sql = "SELECT * FROM {$this->tableName} WHERE {$field} = {$value}";
+        $sql = "SELECT * FROM {$this->tableName} WHERE {$field} = :{$field}";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
+        $stmt->execute([":{$field}" => $value]);
         if ($stmt->rowCount() > 0) {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
@@ -73,6 +73,7 @@ class User extends Database
         if (!empty($file)) {
             $fileTempPath = $file['tmp_name'];
             $fileName = $file['name'];
+            $fileSize = $file['size'];
             $fileType = $file['type'];
             $fileNameCmps = explode('.', $fileName);
             $fileExtension = strtolower(end($fileNameCmps));
