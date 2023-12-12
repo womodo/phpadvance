@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="multiple-select.css">
+</head>
+<body>
+    <select id="multiple-select" multiple="multiple">
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+        <option value="4">Option 4</option>
+        <option value="5">Option 5</option>
+        <option value="6">あいうえおかきくけこ</option>
+        <option value="7">あいうえお12345かきくけこ12345</option>
+    </select>
+    <span id="select-text">aaa</span>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="multiple-select.js"></script>
+    <script>
+        $('#multiple-select').multipleSelect({
+            width: 25,
+            selectAll: false,
+            minimumCountSelected: 0,
+            // showClear: true,
+            // position: 'top',
+            onClick: function(view) {
+                // console.log(JSON.stringify(view));
+
+                var arr = $('#multiple-select').multipleSelect('getSelects', 'text');
+                console.log(arr);
+
+
+                // for (let i in arr) {
+                //     console.log(arr[i]);
+                // }
+                console.log(arr.join(','));
+
+                var span = document.getElementById('select-text');
+                // span.innerHTML = arr.join('<br>');
+                span.innerHTML = arr.join(',');
+                
+
+                // const element = document.querySelector('#multiple-select+.ms-parent>.ms-choice>span');
+                // console.log(element);
+                // console.log(element.textContent);
+                // console.log(element.textContent.length);
+                // var length = element.textContent.length;
+
+                // const msparent = document.querySelector('#multiple-select+.ms-parent.ms-parent');
+                // console.log(msparent.style.width);
+
+                // var span = document.createElement('span');
+                // span.style.position = 'absolute';
+                // span.style.top = '-1000px';
+                // span.style.left = '-1000px';
+                // span.style.whiteSpace = 'nowrap';
+                // span.innerHTML = element.textContent;
+                // document.body.appendChild(span);
+                // var width = span.clientWidth;
+                // span.parentElement.removeChild(span);
+                // console.log(width);
+                // msparent.style.width = width + 20 + 'px';
+
+                // var canvas = document.createElement('canvas');
+                // var context = canvas.getContext('2d');
+                // context.font = window.getComputedStyle(element).font;
+                // var metrics = context.measureText(element.textContent);
+                // console.log(metrics.width);
+                // msparent.style.width = metrics.width + 20 + 'px';
+
+                // console.log(context);
+                // console.log(window.getComputedStyle(element).font);
+
+                // computedWidth = window.getComputedStyle(document.querySelector('#multiple-select'));
+                // console.log(computedWidth);
+                // msparent.style.width = length * 10 + 'px';
+                // console.log(element.measureText(element.textContent).width);
+            }
+        });
+    </script>
+</body>
+</html>
