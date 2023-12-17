@@ -1,6 +1,10 @@
 <?php
 // この部分はPHPコードとして実行される
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // echo "<pre>";
+    // print_r($_POST);
+    // echo "</pre>";
+
     if (isset($_POST['functionName'])) {
         // Ajaxリクエストがある場合の処理
         $functionName = $_POST['functionName'];
@@ -26,6 +30,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //     default:
         //         break;
         // }
+        exit;
+    } else {
+        if (isset($_POST['param1']) && $_POST['param1'] == 'error') {
+            header("HTTP/1.1 500 Internal Server Error");
+            echo "エラーが発生しました。";
+        } else {
+            $responseData = array(
+                'success' => true,
+                'message' => '正常なリクエストです。',
+            );
+            header('Content-Type: application/json');
+            echo json_encode($responseData);
+        }
         exit;
     }
 }
@@ -74,6 +91,23 @@ $phpVariable = "Hello from PHP!";
                 }
             });
         }
+
+        function button3_click() {
+            $.ajax({
+                type: "POST",
+                url: "", // 空の場合、同じファイルに対してリクエストを送信
+                data: {
+                    param1: $('#inputText').val(),
+                },
+            }).done(function(response) {
+                // 成功時
+                console.log(response);
+                $("#p2").html(response);
+            }).fail(function(xhr, status, error) {
+                // 失敗時
+                console.error('エラー:', xhr, status, error);
+            });
+        }
     </script>
 </head>
 <body>
@@ -85,6 +119,7 @@ $phpVariable = "Hello from PHP!";
     </form>
 
     <button type="button" onclick="button2_click()">button2</button>
+    <button type="button" onclick="button3_click()">button3</button>
 
     <p id="p2"></p>
 
