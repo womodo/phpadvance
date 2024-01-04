@@ -17,7 +17,7 @@ if ($action == 'adduser' && !empty($_POST)) {
     $mobile = $_POST['mobile'];
     $photo = $_FILES['photo'];
 
-    $playerid = !empty($_POST['userId']) ? $_POST['userid'] : "";
+    $playerId = !empty($_POST['userId']) ? $_POST['userId'] : "";
 
     $imagename = "";
     if (!empty($photo['name'])) {
@@ -36,9 +36,14 @@ if ($action == 'adduser' && !empty($_POST)) {
         ];
     }
 
-    $playerid = $obj->add($playerData);
-    if (!empty($playerid)) {
-        $player = $obj->getRow('id', $playerid);
+    if ($playerId) {
+        $obj->update($playerData, $playerId);
+    } else {
+        $playerId = $obj->add($playerData);
+    }
+
+    if (!empty($playerId)) {
+        $player = $obj->getRow('id', $playerId);
         echo json_encode($player);
         exit();
     }
@@ -59,6 +64,40 @@ if ($action == 'getAllUsers') {
     $total = $obj->getCount();
     $userArr = ['count' => $total, 'users' => $userlist];
     echo json_encode($userArr);
+    exit();
+}
+
+
+// action to perform editing
+if ($action == 'editUserData') {
+    $playerId = !empty($_GET['id']) ? $_GET['id'] : "";
+    if (!empty($playerId)) {
+        $user = $obj->getRow('id', $playerId);
+        echo json_encode($user);
+        exit();
+    }
+}
+
+// perform deleting
+if ($action == 'deleteUser') {
+    $playerId = !empty($_GET['id']) ? $_GET['id'] : "";
+    if (!empty($playerId)) {
+        $isdeleted = $obj->deleteRow($playerId);
+        if ($isdeleted) {
+            $displaymessage = ['delete' => 1];
+        } else {
+            $displaymessage = ['delete' => 0];
+        }
+        echo json_encode($displaymessage);
+        exit();
+    }
+}
+
+// search data
+if ($action == 'searchUser') {
+    $queryString = !empty($_GET['searchQuery']) ? trim($_GET['searchQuery']) : "";
+    $results = $obj->searchUser($queryString);
+    echo json_encode($results);
     exit();
 }
 

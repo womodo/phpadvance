@@ -91,9 +91,58 @@ class User extends Database
     }
 
     // function to update
-    public function update() {
-        
+    public function update($data, $id) {
+        if (!empty($data)) {
+            $fields = "";
+            $x = 1;
+            $fieldsCount = count($data);
+            foreach ($data as $field => $value) {
+                $fields .= "{$field}=:{$field}";
+                if ($x < $fieldsCount) {
+                    $fields .= ",";
+                }
+                $x++;
+            }
+        }
+        $sql = "UPDATE {$this->tableName} SET {$fields} WHERE id=:id";
+        $stmt = $this->conn->prepare($sql);
+        try {
+            $this->conn->beginTransaction();
+            $data['id'] = $id;
+            $stmt->execute($data);
+            $this->conn->commit();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            $this->conn->rollBack();
+        }
     }
 
+    // function to delete
+    public function deleteRow($id) {
+        $sql = "DELETE FROM {$this->tableName} WHERE id=:id";
+        $stmt = $this->conn->prepare($sql);
+        try {
+            $stmt->execute([':id'=>$id]);
+            if ($stmt->rowCount() > 0) {
+                return true;
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    // function to search user
+    public function searchUser($searchText, $start=0, $limit=4) {
+        $sql = "SELECT * FROM {$this->tableName} WHERE name LIKE :search ORDER BY id DESC LIMIT {$start},{$limit}";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':search' => "{$searchText}%"]);
+        if ($stmt->rowCount() > 0) {
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $results = [];
+        }
+        return $results;
+    }    
 }
 ?>

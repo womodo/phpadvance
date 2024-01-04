@@ -1,4 +1,4 @@
-<div class="modal fade" id="userViewModal" role="dialog">
+<div class="modal fade" id="userViewModal" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="container" id="profile">
-                    <h4>All user data will be displayed here</h4>
+                    <!-- <h4>All user data will be displayed here</h4> -->
                 </div>
             </div>
             <div class="modal-footer">
