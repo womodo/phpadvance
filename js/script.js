@@ -72,6 +72,7 @@ function getUsers() {
 
 // loading document
 $(document).ready(function () {
+    $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
 
     $("#addform").on("submit", (function (event) {
         event.preventDefault();
