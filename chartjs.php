@@ -1,37 +1,37 @@
 <?php
 $list = [
-    ["CATEGORY"=>"Category 1", "ITEM_CD"=>"ITEM-111", "QTY"=>"1"],
-    ["CATEGORY"=>"Category 1", "ITEM_CD"=>"ITEM-112", "QTY"=>"2"],
-    ["CATEGORY"=>"Category 1", "ITEM_CD"=>"ITEM-113", "QTY"=>"3"],
-    ["CATEGORY"=>"Category 2", "ITEM_CD"=>"ITEM-111", "QTY"=>"4"],
-    ["CATEGORY"=>"Category 2", "ITEM_CD"=>"ITEM-113", "QTY"=>"5"],
-    ["CATEGORY"=>"Category 3", "ITEM_CD"=>"ITEM-111", "QTY"=>"3"],
-    ["CATEGORY"=>"Category 1", "ITEM_CD"=>"ITEM-111", "QTY"=>"2"],
-    ["CATEGORY"=>"Category 4", "ITEM_CD"=>"ITEM-111", "QTY"=>"3"],
-    ["CATEGORY"=>"Category 4", "ITEM_CD"=>"２ITEM-111", "QTY"=>"4"],
-    ["CATEGORY"=>"Category 4", "ITEM_CD"=>"2ITEM-112", "QTY"=>"2"],
-    ["CATEGORY"=>"Category 5", "ITEM_CD"=>"ITEM-114", "QTY"=>"2"],
-    ["CATEGORY"=>"Category 4", "ITEM_CD"=>"12ITEM-111", "QTY"=>"3"],
-    ["CATEGORY"=>"Category 1", "ITEM_CD"=>"1ITEM-113", "QTY"=>"3"],
-    ["CATEGORY"=>"Category 1", "ITEM_CD"=>"1ITEM-114", "QTY"=>"2"],
-    ["CATEGORY"=>"Category 3", "ITEM_CD"=>"1ITEM-111", "QTY"=>"1"],
-    ["CATEGORY"=>"Category 5", "ITEM_CD"=>"1ITEM-112", "QTY"=>"3"],
-    ["CATEGORY"=>"Category 1", "ITEM_CD"=>"1ITEM-113", "QTY"=>"2"],
-    ["CATEGORY"=>"Category 2", "ITEM_CD"=>"1ITEM-112", "QTY"=>"1"],
-    ["CATEGORY"=>"Category 3", "ITEM_CD"=>"1ITEM-111", "QTY"=>"4"],
-    ["CATEGORY"=>"Category 2", "ITEM_CD"=>"1ITEM-112", "QTY"=>"3"],
-    ["CATEGORY"=>"Category 4", "ITEM_CD"=>"1ITEM-12", "QTY"=>"2"],
-    ["CATEGORY"=>"Category 1", "ITEM_CD"=>"1ITEM-13", "QTY"=>"2"],
-    ["CATEGORY"=>"Category 4", "ITEM_CD"=>"1ITEM-13", "QTY"=>"1"],
-    ["CATEGORY"=>"Category 5", "ITEM_CD"=>"1ITEM-12", "QTY"=>"3"],
-    ["CATEGORY"=>"Category 4", "ITEM_CD"=>"1ITEM-12", "QTY"=>"2"],
-    ["CATEGORY"=>"Category 2", "ITEM_CD"=>"1ITEM-12", "QTY"=>"1"],
-    ["CATEGORY"=>"Category 2", "ITEM_CD"=>"1ITEM-13", "QTY"=>"2"],
-    ["CATEGORY"=>"Category 3", "ITEM_CD"=>"1ITEM-12", "QTY"=>"3"],
-    ["CATEGORY"=>"Category 4", "ITEM_CD"=>"1ITEM-12", "QTY"=>"3"],
-    ["CATEGORY"=>"Category 3", "ITEM_CD"=>"1ITEM-01", "QTY"=>"1"],
-    ["CATEGORY"=>"Category 2", "ITEM_CD"=>"1ITEM-02", "QTY"=>"1"],
-    ["CATEGORY"=>"Category 1", "ITEM_CD"=>"1ITEM-03", "QTY"=>"1"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 1", "ITEM_CD"=>"ITEM-111", "QTY"=>"1"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 1", "ITEM_CD"=>"ITEM-112", "QTY"=>"2"],
+    ["WORK"=>"2", "CATEGORY"=>"Category 1", "ITEM_CD"=>"ITEM-113", "QTY"=>"3"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 2", "ITEM_CD"=>"ITEM-111", "QTY"=>"4"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 2", "ITEM_CD"=>"ITEM-113", "QTY"=>"5"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 3", "ITEM_CD"=>"ITEM-111", "QTY"=>"3"],
+    ["WORK"=>"2", "CATEGORY"=>"Category 1", "ITEM_CD"=>"ITEM-111", "QTY"=>"2"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 4", "ITEM_CD"=>"ITEM-111", "QTY"=>"3"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 4", "ITEM_CD"=>"２ITEM-111", "QTY"=>"4"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 4", "ITEM_CD"=>"2ITEM-112", "QTY"=>"2"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 5", "ITEM_CD"=>"ITEM-114", "QTY"=>"2"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 4", "ITEM_CD"=>"12ITEM-111", "QTY"=>"3"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 1", "ITEM_CD"=>"1ITEM-113", "QTY"=>"3"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 1", "ITEM_CD"=>"1ITEM-114", "QTY"=>"2"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 3", "ITEM_CD"=>"1ITEM-111", "QTY"=>"1"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 5", "ITEM_CD"=>"1ITEM-112", "QTY"=>"3"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 1", "ITEM_CD"=>"1ITEM-113", "QTY"=>"2"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 2", "ITEM_CD"=>"1ITEM-112", "QTY"=>"1"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 3", "ITEM_CD"=>"1ITEM-111", "QTY"=>"4"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 2", "ITEM_CD"=>"1ITEM-112", "QTY"=>"3"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 4", "ITEM_CD"=>"1ITEM-12", "QTY"=>"2"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 1", "ITEM_CD"=>"1ITEM-13", "QTY"=>"2"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 4", "ITEM_CD"=>"1ITEM-13", "QTY"=>"1"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 5", "ITEM_CD"=>"1ITEM-12", "QTY"=>"3"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 4", "ITEM_CD"=>"1ITEM-12", "QTY"=>"2"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 2", "ITEM_CD"=>"1ITEM-12", "QTY"=>"1"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 2", "ITEM_CD"=>"1ITEM-13", "QTY"=>"2"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 3", "ITEM_CD"=>"1ITEM-12", "QTY"=>"3"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 4", "ITEM_CD"=>"1ITEM-12", "QTY"=>"3"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 3", "ITEM_CD"=>"1ITEM-01", "QTY"=>"1"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 2", "ITEM_CD"=>"1ITEM-02", "QTY"=>"1"],
+    ["WORK"=>"1", "CATEGORY"=>"Category 1", "ITEM_CD"=>"1ITEM-03", "QTY"=>"1"],
     ["CATEGORY"=>"Cat1", "ITEM_CD"=>"ITEM-01", "QTY"=>"1"],
     ["CATEGORY"=>"Cat1", "ITEM_CD"=>"ITEM-02", "QTY"=>"1"],
     ["CATEGORY"=>"Cat1", "ITEM_CD"=>"ITEM-03", "QTY"=>"1"],
@@ -60,11 +60,12 @@ $list = [
 ];
 
 //縦軸の項目用
-// $categorys = [];
-// foreach ($list as $value) {
-//     $categorys = array_unique(array_merge([$value['CATEGORY']], $categorys));
-// }
-$categorys = array_unique(array_column($list, "CATEGORY"));
+$categorys = [];
+foreach ($list as $value) {
+    $key = $value['WORK'].':'.$value['CATEGORY'];
+    $categorys = array_unique(array_merge(array($key), $categorys));
+}
+// $categorys = array_unique(array_column($list, "CATEGORY"));
 // sort($categorys);
 usort($categorys, "strnatcmp");
 
@@ -79,7 +80,9 @@ foreach ($categorys as $category) {
     foreach ($items as $itemCd) {
         $qty = 0;
         foreach ($list as $value) {
-            if ($value["CATEGORY"] == $category && $value["ITEM_CD"] == $itemCd) {
+            $key = $value['WORK'].':'.$value['CATEGORY'];
+            if ($key == $category && $value["ITEM_CD"] == $itemCd) {
+            // if ($value["CATEGORY"] == $category && $value["ITEM_CD"] == $itemCd) {
                 $qty += $value["QTY"];
             }
         }
@@ -87,9 +90,9 @@ foreach ($categorys as $category) {
     }
 }
 
-// echo('<pre>');
-// print_r($datas);
-// echo('</pre>');
+echo('<pre>');
+print_r($categorys);
+echo('</pre>');
 
 // $strings = array("12A", "1A", "3B", "2C", "１０００", "５００");
 // $collator = new Collator('ja_JP'); // ロケールを指定
