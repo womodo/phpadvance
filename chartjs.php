@@ -90,9 +90,9 @@ foreach ($categorys as $category) {
     }
 }
 
-echo('<pre>');
-print_r($categorys);
-echo('</pre>');
+// echo('<pre>');
+// print_r($categorys);
+// echo('</pre>');
 
 // $strings = array("12A", "1A", "3B", "2C", "１０００", "５００");
 // $collator = new Collator('ja_JP'); // ロケールを指定
@@ -134,6 +134,10 @@ echo('</pre>');
         <label for="toggleCheckbox1">Chart1</label>
         <input type="checkbox" id="toggleCheckbox2" onchange="toggleChartVisibility('myChartDiv2')" checked>
         <label for="toggleCheckbox2">Chart2</label>
+        <select name="selectChart2" id="selectChart2">
+            <option value="bar">棒グラフ</option>
+            <option value="pie">円グラフ</option>
+        </select>
         <input type="checkbox" id="toggleCheckbox3" onchange="toggleChartVisibility('myChartDiv3')" checked>
         <label for="toggleCheckbox3">Chart3</label>
         <button onclick="saveCharts()">Save Charts as Image</button>
@@ -162,12 +166,118 @@ echo('</pre>');
     </div> -->
     
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.1"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
+        const customCanvasBackgroundColor = {
+            id: 'customCanvasBackgroundColor',
+            beforeDraw: (chart, args, options) => {
+                const {ctx} = chart;
+                ctx.save();
+                // 枠線
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = 'gray';
+                ctx.strokeRect(0, 0, chart.width, chart.height);
+                // 背景色
+                ctx.globalCompositeOperation = 'destination-over';
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, chart.width, chart.height);
+                ctx.restore();
+            }
+        };
+
+        const colors = [
+            "rgba(246, 185, 59, 1.0)",
+            "rgba(159, 189, 225,1.0)",
+            "rgba(255, 234, 167,1.0)",
+            "rgba(184, 233, 148,1.0)",
+            "rgba(130, 204, 221,1.0)",
+
+            "rgba(250, 211, 144,1.0)",
+            "rgba(250, 177, 160,1.0)",
+            "rgba(135, 206, 250,1.0)",
+            "rgba(248, 194, 145,1.0)",
+            "rgba(120, 224, 143,1.0)",
+
+            "rgba(255, 228, 181,1.0)",
+            "rgba(222, 184, 135,1.0)",
+            "rgba(176, 224, 230,1.0)",
+            "rgba(221, 218, 235,1.0)",
+            "rgba(123, 237, 159,1.0)",
+
+            "rgba(236, 204, 104,1.0)",
+            "rgba(216, 191, 216,1.0)",
+            "rgba(178, 190, 195,1.0)",
+            "rgba(255, 204, 204,1.0)",
+            "rgba(173, 216, 230,1.0)",
+        ];
+        
+        var chart2;
+        function drawChart2(chartType) {
+            var displayLabel = true;
+            if (chartType == 'bar') {
+                displayLabel = false;
+            }
+            const ctx2 = document.getElementById('myChart2').getContext('2d');
+            if (chart2) {
+                chart2.destroy();
+            }
+            // const chart2 = new Chart(ctx2, {
+            chart2 = new Chart(ctx2, {
+                type: chartType,
+                data: {
+                    labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+                    datasets: [
+                        {
+                            label: 'Dataset 1',
+                            data: [10, 30, 20, 40, 60],
+                            backgroundColor: [
+                                colors[0],
+                                colors[1],
+                                colors[2],
+                                colors[3],
+                                colors[4],
+                            ]
+                        },
+                    ]
+                },
+                plugins: [
+                    ChartDataLabels,
+                    {
+                        beforeDraw: (chart, args, options) => {
+                            const {ctx} = chart;
+                            ctx.save();
+                            // 枠線
+                            ctx.lineWidth = 2;
+                            ctx.strokeStyle = 'gray';
+                            ctx.strokeRect(0, 0, chart.width, chart.height);
+                            // 背景色
+                            ctx.globalCompositeOperation = 'destination-over';
+                            ctx.fillStyle = 'white';
+                            ctx.fillRect(0, 0, chart.width, chart.height);
+                            ctx.restore();
+                        }
+                    }
+                ],
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: {
+                            // display: false  // 凡例を非表示にする
+                            display: displayLabel
+                        },
+                    }
+                }
+            });
+        }
+
         const ctx1 = document.getElementById('myChart1').getContext('2d');
         const chart1 = new Chart(ctx1, {
-            type: 'bar',
+            type: 'pie',
             data: {
                 labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                 datasets: [{
@@ -218,84 +328,8 @@ echo('</pre>');
             }
         });
 
-        const ctx2 = document.getElementById('myChart2').getContext('2d');
-        const chart2 = new Chart(ctx2, {
-            type: 'pie',
-            data: {
-                labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'A', 'B', 'C', 'D', 'E', 'F', 'J'],
-                datasets: [
-                    {
-                        label: 'Dataset 1',
-                        data: [10, 30, 20, 40, 60],
-                    }
-                ]
-            },
-            plugins: [
-                ChartDataLabels,
-                {
-                    beforeDraw: (chart, args, options) => {
-                        const {ctx} = chart;
-                        ctx.save();
-                        // 枠線
-                        ctx.lineWidth = 2;
-                        ctx.strokeStyle = 'gray';
-                        ctx.strokeRect(0, 0, chart.width, chart.height);
-                        // 背景色
-                        ctx.globalCompositeOperation = 'destination-over';
-                        ctx.fillStyle = 'white';
-                        ctx.fillRect(0, 0, chart.width, chart.height);
-                        ctx.restore();
-                    }
-                }
-            ],
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-            }
-        });
-
-        const customCanvasBackgroundColor = {
-            id: 'customCanvasBackgroundColor',
-            beforeDraw: (chart, args, options) => {
-                const {ctx} = chart;
-                ctx.save();
-                // 枠線
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = 'gray';
-                ctx.strokeRect(0, 0, chart.width, chart.height);
-                // 背景色
-                ctx.globalCompositeOperation = 'destination-over';
-                ctx.fillStyle = 'white';
-                ctx.fillRect(0, 0, chart.width, chart.height);
-                ctx.restore();
-            }
-        };
-
-        const colors = [
-            "rgba(246, 185, 59, 1.0)",
-            "rgba(159, 189, 225,1.0)",
-            "rgba(255, 234, 167,1.0)",
-            "rgba(184, 233, 148,1.0)",
-            "rgba(130, 204, 221,1.0)",
-
-            "rgba(250, 211, 144,1.0)",
-            "rgba(250, 177, 160,1.0)",
-            "rgba(135, 206, 250,1.0)",
-            "rgba(248, 194, 145,1.0)",
-            "rgba(120, 224, 143,1.0)",
-
-            "rgba(255, 228, 181,1.0)",
-            "rgba(222, 184, 135,1.0)",
-            "rgba(176, 224, 230,1.0)",
-            "rgba(221, 218, 235,1.0)",
-            "rgba(123, 237, 159,1.0)",
-
-            "rgba(236, 204, 104,1.0)",
-            "rgba(216, 191, 216,1.0)",
-            "rgba(178, 190, 195,1.0)",
-            "rgba(255, 204, 204,1.0)",
-            "rgba(173, 216, 230,1.0)",
-        ];
+        var selectChart2 = document.getElementById('selectChart2').value;
+        drawChart2(selectChart2);
 
         const ctx3 = document.getElementById('myChart3').getContext('2d');
         new Chart(ctx3, {
@@ -540,6 +574,15 @@ echo('</pre>');
             //     });
             // });
         }
+    </script>
+
+    <script>
+        $(function(){
+            $('#selectChart2').on('change', function(){
+                var chartType = $(this).val();
+                drawChart2(chartType);
+            });
+        });
     </script>
 </body>
 </html>
