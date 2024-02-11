@@ -48,7 +48,7 @@ if ($event == "save") {
                     <div class="row mb-2">
                         <label for="PinName" class="col-3 col-form-label text-end">ピン名</label>
                         <div class="col-9">
-                            <input type="text" class="form-control" name="PinName" id="PinName">
+                            <input type="text" class="form-control text-center" name="PinName" id="PinName">
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -63,19 +63,19 @@ if ($event == "save") {
                     <div class="row mb-3">
                         <label for="OdrQty" class="col-3 col-form-label text-end">発注点</label>
                         <div class="col-9">
-                            <input type="number" class="form-control" name="OdrQty" id="OdrQty">
+                            <input type="number" class="form-control text-center" name="OdrQty" id="OdrQty">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="StockQty" class="col-3 col-form-label text-end">在庫数</label>
                         <div class="col-9">
-                            <input type="number" class="form-control" name="StockQty" id="StockQty">
+                            <input type="number" class="form-control text-center" name="StockQty" id="StockQty">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="StdQty" class="col-3 col-form-label text-end">基準ショット数</label>
                         <div class="col-9">
-                            <input type="number" class="form-control" name="StdQty" id="StdQty">
+                            <input type="number" class="form-control text-center" name="StdQty" id="StdQty">
                         </div>
                     </div>
                     <div class="row justify-content-center">

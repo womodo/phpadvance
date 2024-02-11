@@ -16,7 +16,9 @@ function querySql($sql) {
     $data = [];
     foreach ($result as $rows) {
         foreach ($rows as $key => $value) {
-            if ($value == null) {
+            if ($value === 0) {
+                $value = 0;
+            } elseif ($value == null) {
                 $value = "";
             }
             $row[$key] = $value;
@@ -69,10 +71,14 @@ if ($target == "PinLinkList") {
     }
 }
 
+// ピン一覧
 if ($target == "PinItemList") {
     $PinName = htmlspecialchars($_POST["PIN_NAME"]);
     $ItemCd = htmlspecialchars($_POST["ITEM_CD"]);
     $MoldItemCd = htmlspecialchars($_POST["MOLD_ITEM_CD"]);
+    $StockOut = htmlspecialchars($_POST["STOCK_OUT"]);
+    $ShotOut = htmlspecialchars($_POST["SHOT_OUT"]);
+    $DelFlg = htmlspecialchars($_POST["DEL_FLG"]);
 
     $sql = "SELECT ";
     $sql.= "p.PIN_ID, ";
@@ -84,6 +90,14 @@ if ($target == "PinItemList") {
     if ($PinName != "") $sql.= "AND PIN_NAME LIKE '%$PinName%' ";
     if ($ItemCd != "") $sql.= "AND ITEM_CD LIKE '%$ItemCd%' ";
     if ($MoldItemCd != "") $sql.= "AND MOLD_ITEM_CD LIKE '%$MoldItemCd%' ";
+    if ($StockOut == 'true') {
+        $sql.= "AND ODR_QTY >= STOCK_QTY ";
+    }
+    if ($DelFlg == 'true') {
+        $sql.= "AND DEL_FLG IN ('0', '1') ";
+    } else {
+        $sql.= "AND DEL_FLG = '0' ";
+    }
     $sql.= "GROUP BY p.PIN_NAME, p.PIN_ID ";
     $sql.= "ORDER BY p.PIN_NAME, p.PIN_ID ";
     $pinList = querySql($sql);
@@ -95,6 +109,7 @@ if ($target == "PinItemList") {
     $sql.= "p.STD_QTY, ";
     $sql.= "p.ODR_QTY, ";
     $sql.= "p.SLOPE_PIN_FLG, ";
+    $sql.= "p.DEL_FLG, ";
     $sql.= "l.ITEM_CD, ";
     $sql.= "l.MOLD_ITEM_CD, ";
     $sql.= "l.PIN_POSITION_NO ";
@@ -104,6 +119,14 @@ if ($target == "PinItemList") {
     if ($PinName != "") $sql.= "AND PIN_NAME LIKE '%$PinName%' ";
     if ($ItemCd != "") $sql.= "AND ITEM_CD LIKE '%$ItemCd%' ";
     if ($MoldItemCd != "") $sql.= "AND MOLD_ITEM_CD LIKE '%$MoldItemCd%' ";
+    if ($StockOut == 'true') {
+        $sql.= "AND ODR_QTY >= STOCK_QTY ";
+    }
+    if ($DelFlg == 'true') {
+        $sql.= "AND DEL_FLG IN ('0', '1') ";
+    } else {
+        $sql.= "AND DEL_FLG = '0' ";
+    }
     $sql.= "ORDER BY p.PIN_NAME, p.PIN_ID, l.ITEM_CD, l.MOLD_ITEM_CD, l.PIN_POSITION_NO ";
     $itemList = querySql($sql);
 
@@ -120,6 +143,7 @@ if ($target == "PinItemList") {
                     "STD_QTY" => $row["STD_QTY"],
                     "ODR_QTY" => $row["ODR_QTY"],
                     "SLOPE_PIN_FLG" => $row["SLOPE_PIN_FLG"],
+                    "DEL_FLG" => $row["DEL_FLG"],
                     "ITEM_CD" => $row["ITEM_CD"],
                     "MOLD_ITEM_CD" => $row["MOLD_ITEM_CD"],
                     "PIN_POSITION_NO" => $row["PIN_POSITION_NO"],

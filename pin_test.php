@@ -23,42 +23,44 @@
                 <div class="col-8">
                     <div class="card">
                         <div class="card-header">
-                            検索
+                            検索条件
                         </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-around">
-                                <div class="d-flex">
-                                    <label class="col-form-label" for="PinName">ピン名(%)：</label>
-                                    <input type="text" class="form-control text-center filter-text" style="width:200px;" id="PinName" name="PinName">
-                                </div>
-                                <div class="d-flex">
-                                    <label class="col-form-label" for="ItemCd">品番(%)：</label>
-                                    <input type="text" class="form-control text-center filter-text" style="width:200px;" id="ItemCd" name="ItemCd">
-                                </div>
-                                <div class="d-flex">
-                                    <label  class="col-form-label"for="MoldItemCd">型番(%)：</label>
-                                    <input type="text" class="form-control text-center filter-text" style="width:100px;" id="MoldItemCd" name="MoldItemCd">
-                                </div>
-                            </div>
-                            <div>
-                                ・削除のピンも表示する（削除フラグ）<br>
-                                ・在庫数が発注点以下<br>
-                                ・ショット数が基準ショット数以上<br>
-                            </div>
-                            <!-- <div class="row justify-content-center">
-                                <label class="col-form-label col-2 text-end" for="PinName" style="width:90px;">ピン名(%)</label>
-                                <div class="col-2" style="width:200px;">
-                                    <input type="text" class="form-control text-center filter-text" id="PinName" name="PinName">
-                                </div>
-                                <label class="col-form-label col-2 text-end" for="ItemCd" style="width:90px;">品番(%)</label>
-                                <div class="col-2" style="width:200px;">
-                                    <input type="text" class="form-control text-center filter-text" id="ItemCd" name="ItemCd">
-                                </div>
-                                <label  class="col-form-label col-2 text-end"for="MoldItemCd" style="width:90px;">型番(%)</label>
-                                <div class="col-2" style="width:100px;">
-                                    <input type="text" class="form-control text-center filter-text" id="MoldItemCd" name="MoldItemCd">
-                                </div>
-                            </div> -->
+                        <div class="card-body pb-2">
+                            <table class="table table-borderless mb-0">
+                                <tr>
+                                    <td>
+                                        <label class="col-form-label" for="PinName">ピン名(%)</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control text-center filter-input" style="width:150px;" id="PinName" name="PinName">
+                                    </td>
+                                    <td>
+                                        <label class="col-form-label" for="ItemCd">品番(%)</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control text-center filter-input" style="width:150px;" id="ItemCd" name="ItemCd">
+                                    </td>
+                                    <td>
+                                        <label  class="col-form-label"for="MoldItemCd">型番(%)</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control text-center filter-input" style="width:100px;" id="MoldItemCd" name="MoldItemCd">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" class="align-middle">
+                                        <input type="checkbox" class="form-check-input filter-input" name="chkStockOut" id="chkStockOut">
+                                        <label for="chkStockOut" class="form-check-label">在庫数が発注以下を表示</label>
+                                        <input type="checkbox" class="form-check-input ms-4 filter-input" name="chkShotOut" id="chkShotOut">
+                                        <label for="chkShotOut" class="form-check-label">基準ショット数超えを表示</label>
+                                        <input type="checkbox" class="form-check-input ms-4 filter-input" name="chkDelFlg" id="chkDelFlg">
+                                        <label for="chkDelFlg" class="form-check-label">削除済みも表示</label>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" style="width:100px;" id="btnSearch">検索</button>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -67,14 +69,31 @@
                         <div class="card-header">
                             処理
                         </div>
-                        <div class="card-body text-center ps-1 pe-1">
-                            <button type="button" class="btn btn-primary" id="btnSearch">検<br>索</button>
-                            <button type="button" class="btn btn-success" id="btnNew" title="ピンを新規登録する画面を表示">新規<br>登録</button>
-                            <button type="button" class="btn btn-warning" id="btnUpdate" title="一覧の中でチェックが入っているピンの発注点、基準ショット数を変更">変<br>更</button>
-                            <button type="button" class="btn btn-danger">削<br>除</button>
-                            <button type="button" class="btn btn-info" id="btnCsv">CSV<br>出力</button>
-                            <button type="button" class="btn btn-outline-success" id="btnLink" title="品番＋型番へピンを紐付ける画面を表示">紐<br>付</button>
-                            <button type="button" class="btn btn-dark" style="width:60px;" id="btnClose">閉じる</button>
+                        <div class="card-body pb-2">
+                            <table class="table table-borderless mb-0">
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-success" style="width:100px;" id="btnNew" title="ピンを新規登録する画面を表示">新規登録</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning" style="width:100px;" id="btnUpdate" title="一覧の中でチェックが入っているピンの発注点、基準ショット数を変更">変更</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger" style="width:100px;">削除</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-info" style="width:100px;" id="btnLink" title="品番＋型番へピンを紐付ける画面を表示">型紐付け</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-secondary" style="width:100px;" id="btnCsv">CSV出力</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-dark" style="width:100px;" id="btnClose">閉じる</button>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -88,7 +107,9 @@
                     <table class="table table-bordered table-sm align-middle">
                         <thead class="table-dark sticky-top">
                             <tr class="text-center align-middle">
-                                <th><input type="checkbox" name="" id=""></th>
+                                <th>
+                                    <input type="checkbox" class="form-check-input" name="" id="">
+                                </th>
                                 <th>ピン名</th>
                                 <th>傾斜<br>ピン</th>
                                 <th>発注点</th>
@@ -119,7 +140,7 @@
             getPinItemList();
 
             // 検索条件が変更された時に実行
-            $('.filter-text').on('change', function() {
+            $('.filter-input').on('change', function() {
                 getPinItemList();
             });
 
@@ -156,6 +177,9 @@
             var ItemCd = $('#ItemCd').val();
             var MoldItemCd = $('#MoldItemCd').val();
 
+            var StockOut = $('#chkStockOut').prop('checked');
+            var DelFlg = $('#chkDelFlg').prop('checked');
+
             var tbody = $('#tbody');
             tbody.empty();
 
@@ -167,6 +191,8 @@
                     PIN_NAME: PinName,
                     ITEM_CD: ItemCd,
                     MOLD_ITEM_CD: MoldItemCd,
+                    STOCK_OUT: StockOut,
+                    DEL_FLG: DelFlg,
                 },
                 dataType: 'json',
                 success: function(data) {
@@ -174,12 +200,20 @@
                     $.each(data, function(index, value) {
                         var tbodyRow = '<tr class="text-center">';
                         if (value.PIN_INDEX == 0) {
-                            tbodyRow += `<th rowspan="${value.PIN_CNT}"><input type="checkbox" name="" id=""></th>`;
-                            tbodyRow += `<td rowspan="${value.PIN_CNT}" style="width:150px;">${value.PIN_NAME}</td>`;
+                            if (value.DEL_FLG == '0') {
+                                tbodyRow += `<td rowspan="${value.PIN_CNT}"><input type="checkbox" class="form-check-input" name="" id=""></td>`;
+                                tbodyRow += `<td rowspan="${value.PIN_CNT}" class="text-nowrap" style="width:150px;">${value.PIN_NAME}</td>`;
+                            } else {
+                                tbodyRow += `<td rowspan="${value.PIN_CNT}"></td>`;
+                                tbodyRow += `<td rowspan="${value.PIN_CNT}" class="text-nowrap" style="width:150px; background-color:lightgray;">${value.PIN_NAME}</td>`;
+                            }
                             tbodyRow += `<td rowspan="${value.PIN_CNT}" style="width:50px;">` + (value.SLOPE_PIN_FLG == 1 ? '✓':'') + `</td>`;
-                            tbodyRow += `<td rowspan="${value.PIN_CNT}" style="width:80px;"><input type="number" class="form-control form-control-sm" value="${value.ODR_QTY}" min="0" style="text-align:center; padding-right:0;"></td>`;
-                            if (parseInt(value.ODR_QTY) >= parseInt(value.STOCK_QTY)) {
-                                
+                            if (value.DEL_FLG == '0') {
+                                tbodyRow += `<td rowspan="${value.PIN_CNT}" style="width:80px;"><input type="number" class="form-control form-control-sm text-center pe-0" value="${value.ODR_QTY}" min="0"></td>`;
+                            } else {
+                                tbodyRow += `<td rowspan="${value.PIN_CNT}" style="width:80px;">${value.ODR_QTY}</td>`;
+                            }
+                            if (parseInt(value.ODR_QTY) >= parseInt(value.STOCK_QTY) && value.DEL_FLG == '0') {
                                 tbodyRow += `<td rowspan="${value.PIN_CNT}" style="width:80px; color:red; font-weight:bold;">${value.STOCK_QTY}</td>`;
                             } else {
                                 tbodyRow += `<td rowspan="${value.PIN_CNT}" style="width:80px;">${value.STOCK_QTY}</td>`;
@@ -192,14 +226,18 @@
                         if (value.PIN_INDEX == 0) {
                             tbodyRow += `<td rowspan="${value.PIN_CNT}" style="width:100px;">`;
                             if (value.SLOPE_PIN_FLG == 0) {
-                                tbodyRow += `<input type="number" value="${value.STD_QTY}" class="form-control form-control-sm" min="0" style="text-align:center; padding-right:0;">`;
+                                if (value.DEL_FLG == '0') {
+                                    tbodyRow += `<input type="number" value="${value.STD_QTY}" class="form-control form-control-sm text-center pe-0" min="0">`;
+                                } else {
+                                    tbodyRow += `${value.STD_QTY}`;
+                                }
                             }
                             tbodyRow += `</td>`;
                         }
                         tbodyRow += `<td style="width:100px;"></td>`;
                         tbodyRow += `<td>
-                                        <button type="button" class="btn btn-secondary btn-sm">登録</button>
-                                        <button type="button" class="btn btn-secondary btn-sm">一覧</button>
+                                        <button type="button" class="btn btn-secondary">登録</button>
+                                        <button type="button" class="btn btn-secondary">一覧</button>
                                      </td>`;
                         tbody.append(tbodyRow);
                     });
