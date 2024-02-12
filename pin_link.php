@@ -1,10 +1,10 @@
 <?php
-    $dbname = "phpadvance";
-    $servername = "localhost";
-    $username = "root";
-    $password = "zaq12wsx";
-    $dsn = "mysql:dbname=".$dbname.";host=".$servername;
-    $dbh = new PDO($dsn, $username, $password);
+$dbname = "phpadvance";
+$servername = "localhost";
+$username = "root";
+$password = "zaq12wsx";
+$dsn = "mysql:dbname=".$dbname.";host=".$servername;
+$dbh = new PDO($dsn, $username, $password);
 
 $event = htmlspecialchars($_POST["event"]);
 $hdNum = htmlspecialchars($_POST["hdNum"]);
@@ -105,6 +105,7 @@ if ($event == "update") {
                                             <tr class="text-center align-middle">
                                                 <th style="width:150px;">ピン位置番号</th>
                                                 <th>ピン名</th>
+                                                <th></th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -269,6 +270,7 @@ if ($event == "update") {
                                 var tbodyRow = `<tr class="text-center">`;
                                 tbodyRow += `<td><input type="number" class="form-control form-control-sm text-center" name="PinPositionNo[${index}]" value="${value.PIN_POSITION_NO}"></td>`;
                                 tbodyRow += `<td><input type="text" class="form-control form-control-sm text-center" name="PinName[${index}]" value="${value.PIN_NAME}" list="PinNameList"></td>`;
+                                tbodyRow += `<td><span id="mySpan[${index}]">xxx${index}</span><button type="button" class="btn btn-info btn-sm btnXXX" name="btnXXX[${index}]">テスト</button></td>`;
                                 tbodyRow += `<td><button type="button" class="btn btn-danger btn-sm btnRemove">削除</button></td>`;
                                 tbodyRow += `</tr>`;
                                 tbody.append(tbodyRow);
@@ -280,6 +282,21 @@ if ($event == "update") {
                         }
                     });
                 }
+            });
+
+            $('#tbody').on('click', '.btnXXX', function() {
+                console.log($(this).attr('name'));
+                var name = $(this).attr('name');
+                var index = name.replace('btnXXX','');
+                console.log(index);
+                // var mySapn = '#mySpan' + index.replace(/\[/g, '\\[').replace(/\]/g, '\\]');
+                var mySapn = '#mySpan' + index.replace('[', '\\[').replace(']', '\\]');
+                console.log($(mySapn).text());
+                console.log(mySapn);
+                $(mySapn).text(Date.now());
+                // console.log($('#mySpan[0]').text());
+                // console.log($('#mySpan\\[0\\]').text());
+                // $('#mySpan\\[0\\]').text('xxx');
             });
         });
     </script>

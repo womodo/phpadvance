@@ -1,10 +1,37 @@
 <?php
+$dbname = "phpadvance";
+$servername = "localhost";
+$username = "root";
+$password = "zaq12wsx";
+$dsn = "mysql:dbname=".$dbname.";host=".$servername;
+$dbh = new PDO($dsn, $username, $password);
 
+$event = htmlspecialchars($_POST["event"]);
 
+$Checkbox = $_POST["Checkbox"];
+$PinName = $_POST["PinNameVal"];
+$OdrQty = $_POST["OdrQty"];
+$StdQty = $_POST["StdQty"];
 
+if ($event == "update") {
+    if (count($Checkbox) > 0) {
+        foreach ($Checkbox as $key => $val) {
+            $sql = "UPDATE m_pin SET ";
+            $sql.= "ODR_QTY = ".$OdrQty[$key]." ";
+            if ($StdQty[$key]) $sql.= ",STD_QTY = ".$StdQty[$key]." ";
+            $sql.= ",UPDATE_DATETIME = now() ";
+            $sql.= "WHERE PIN_NAME = '".$PinName[$key]."'";
+            $dbh->exec($sql);
+        }
+        echo "<script>alert('変更しました。');</script>";
+    }
+}
 
+if ($event == "delete") {
 
+}
 
+$event = "";
 ?>
 
 <!DOCTYPE html>
@@ -79,7 +106,7 @@
                                         <button type="button" class="btn btn-warning" style="width:100px;" id="btnUpdate" title="一覧の中でチェックが入っているピンの発注点、基準ショット数を変更">変更</button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-danger" style="width:100px;">削除</button>
+                                        <button type="button" class="btn btn-danger" id="btnDelete" style="width:100px;">削除</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -129,6 +156,7 @@
             </div>
         </div>
 
+        <input type="hidden" name="event" value="<?=$event?>">
     </form>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -154,6 +182,69 @@
                 var leftPosition = (window.screen.width / 2) - (600 / 2);
                 var topPosition = (window.screen.height / 2) - (400 / 2);
                 window.open('pin_new.php', 'pinNew', 'width=600,height=400,left='+leftPosition+',top='+topPosition);
+            });
+
+            // 変更ボタン
+            $('#btnUpdate').on('click', function() {
+                var errmsg = "";
+
+                var checkbox = false;
+                $('#tbody input[name^="Checkbox"]').each(function(index, value) {
+                    var pinIdx = value.name.replace('Checkbox', '').replace('[', '\\[').replace(']', '\\]');
+                    if (value.checked == true) {
+                        checkbox = true;
+                        // 発注点の入力チェック
+                        if ($(`#OdrQty${pinIdx}`).val() == "") {
+                            $(`#OdrQty${pinIdx}`).focus();
+                            errmsg += '発注点を入力してください。\n';
+                            return false;
+                        }
+                        // 基準ショット数の入力チェック
+                        if ($(`#StdQty${pinIdx}`).val() == "") {
+                            $(`#StdQty${pinIdx}`).focus();
+                            errmsg += '基準ショット数を入力してください。\n';
+                            return false;
+                        }
+                    }
+                });
+                // チェックボックスにチェックがない場合はエラー
+                if (checkbox == false) {
+                    errmsg += '変更するピンのチェックボックスにチェックを入れてください。\n';
+                }
+
+                if (errmsg != "") {
+                    alert(errmsg);
+                    return false;
+                } else {
+                    document.frm1.event.value = 'update';
+                    document.frm1.submit();
+                }
+            });
+
+            // 削除ボタン
+            $('#btnDelete').on('click', function() {
+                var errmsg = "";
+
+                var checkbox = false;
+                $('#tbody input[name^="Checkbox"]').each(function(index, value) {
+                    var pinIdx = value.name.replace('Checkbox', '').replace('[', '\\[').replace(']', '\\]');
+                    if (value.checked == true) {
+                        checkbox = true;
+                        return true;
+                    }
+                });
+                // チェックボックスにチェックがない場合はエラー
+                if (checkbox == false) {
+                    errmsg += '削除するピンのチェックボックスにチェックを入れてください。\n';
+                }
+
+                if (errmsg != "") {
+                    alert(errmsg);
+                    return false;
+                } else {
+                    document.frm1.event.value = 'delete';
+                    document.frm1.submit();
+                }
             });
 
             // 紐付ボタン
@@ -201,15 +292,16 @@
                         var tbodyRow = '<tr class="text-center">';
                         if (value.PIN_INDEX == 0) {
                             if (value.DEL_FLG == '0') {
-                                tbodyRow += `<td rowspan="${value.PIN_CNT}"><input type="checkbox" class="form-check-input" name="" id=""></td>`;
+                                tbodyRow += `<td rowspan="${value.PIN_CNT}"><input type="checkbox" class="form-check-input" name="Checkbox[${index}]" id="Checkbox[${index}]"></td>`;
                                 tbodyRow += `<td rowspan="${value.PIN_CNT}" class="text-nowrap" style="width:150px;">${value.PIN_NAME}</td>`;
+                                tbodyRow += `<input type="hidden" name="PinNameVal[${index}]" value="${value.PIN_NAME}">`;
                             } else {
                                 tbodyRow += `<td rowspan="${value.PIN_CNT}"></td>`;
                                 tbodyRow += `<td rowspan="${value.PIN_CNT}" class="text-nowrap" style="width:150px; background-color:lightgray;">${value.PIN_NAME}</td>`;
                             }
                             tbodyRow += `<td rowspan="${value.PIN_CNT}" style="width:50px;">` + (value.SLOPE_PIN_FLG == 1 ? '✓':'') + `</td>`;
                             if (value.DEL_FLG == '0') {
-                                tbodyRow += `<td rowspan="${value.PIN_CNT}" style="width:80px;"><input type="number" class="form-control form-control-sm text-center pe-0" value="${value.ODR_QTY}" min="0"></td>`;
+                                tbodyRow += `<td rowspan="${value.PIN_CNT}" style="width:80px;"><input type="number" name="OdrQty[${index}]" id="OdrQty[${index}]" class="form-control form-control-sm text-center pe-0" value="${value.ODR_QTY}" min="0"></td>`;
                             } else {
                                 tbodyRow += `<td rowspan="${value.PIN_CNT}" style="width:80px;">${value.ODR_QTY}</td>`;
                             }
@@ -227,7 +319,7 @@
                             tbodyRow += `<td rowspan="${value.PIN_CNT}" style="width:100px;">`;
                             if (value.SLOPE_PIN_FLG == 0) {
                                 if (value.DEL_FLG == '0') {
-                                    tbodyRow += `<input type="number" value="${value.STD_QTY}" class="form-control form-control-sm text-center pe-0" min="0">`;
+                                    tbodyRow += `<input type="number" name="StdQty[${index}]" id="StdQty[${index}]" value="${value.STD_QTY}" class="form-control form-control-sm text-center pe-0" min="0">`;
                                 } else {
                                     tbodyRow += `${value.STD_QTY}`;
                                 }
