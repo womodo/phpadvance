@@ -157,6 +157,7 @@ $event = "";
         </div>
 
         <input type="hidden" name="event" value="<?=$event?>">
+        <input type="hidden" name="xxxxx">
     </form>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -253,6 +254,16 @@ $event = "";
                 var topPosition = (window.screen.height / 2) - (700 / 2);
                 window.open('pin_link.php', 'pinLink', 'width=900,height=700,left='+leftPosition+',top='+topPosition);
             });
+
+            $('#tbody').on('click', 'a[id^=xxx]', function(event) {
+                event.preventDefault();
+                window.open('', 'new_window', 'width=600,height=600');
+                document.frm1.xxxxx.value = this.id;
+                document.frm1.method = 'POST';
+                document.frm1.action = 'xxx.php';
+                document.frm1.target = 'new_window';
+                document.frm1.submit();
+            });
         });
 
         // Ajaxの処理が全て終わってから実行される
@@ -328,8 +339,9 @@ $event = "";
                         }
                         tbodyRow += `<td style="width:100px;"></td>`;
                         tbodyRow += `<td>
-                                        <button type="button" class="btn btn-secondary">登録</button>
+                                        <button type="button" class="btn btn-secondary btnInsert">登録</button>
                                         <button type="button" class="btn btn-secondary">一覧</button>
+                                        <a href="#" id="xxx[${index}]">xxx</a>
                                      </td>`;
                         tbody.append(tbodyRow);
                     });
