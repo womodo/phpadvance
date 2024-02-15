@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Popup Image in New Window on Click</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<a href="#" id="imageLink"><img src="images/sample.jpg" alt="Image" width="400"></a>
+
+<script>
+$(document).ready(function() {
+    $('#imageLink').click(function(e) {
+        e.preventDefault();
+        var imageURL = $(this).find('img').attr('src');
+        openPopup(imageURL);
+    });
+
+    function openPopup(imageURL) {
+        var img = new Image();
+        img.onload = function() {
+            var aspectRatio = img.width / img.height;
+            var windowHeight = 600;
+            var windowWidth = windowHeight * aspectRatio;
+            var left = (screen.width - windowWidth) / 2;
+            var top = (screen.height - windowHeight) / 2;
+            var newWindow = window.open('', '_blank', 'width=' + windowWidth + ',height=' + windowHeight + ',left=' + left + ',top=' + top);
+            if (newWindow) {
+                newWindow.document.write('<div style="text-align:center;"><img src="' + imageURL + '" style="height:100%;"><div>');
+            } else {
+                alert('ポップアップがブロックされています。');
+            }
+        };
+        img.src = imageURL;
+    }
+});
+</script>
+
+</body>
+</html>
